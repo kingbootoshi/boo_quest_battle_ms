@@ -30,7 +30,7 @@ function diceRoll(bonusRoll: number = 0): number {
 // Random Attack Number
 function attack(additionalDamage: number = 0, multiplier: number = 1): number {
 	return (
-		(Math.floor(Math.random() * MAX_DAMAGE) + MIN_DAMAGE + additionalDamage) *
+		(Math.floor(Math.random() * MAX_DAMAGE)) + (MIN_DAMAGE + additionalDamage) *
 		multiplier
 	);
 }
