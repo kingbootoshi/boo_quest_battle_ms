@@ -37,9 +37,13 @@ export async function battle(req: Request, res: Response) {
 		// Calc total stats of the user and the equipment
 		const totalStats: Stat[] = calcStats(asset.stats, equipmentBonuses);
 
-		const statUsed: Stat | undefined = totalStats.find(
-			({ id }) => id === classification.id
-		);
+		var statUsed: Stat | undefined = undefined;
+		if(classification !== null)
+		{
+			statUsed = totalStats.find(
+				({ id }) => id === classification.id
+			);
+		}
 
 		// Check if user has bonus roll
 		const bonusRoll: number = statUsed

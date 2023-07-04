@@ -18,7 +18,7 @@ config();
 
 interface ClassificationResponse {
 	data: {
-		classification: string;
+		classification: string | undefined;
 	};
 }
 
