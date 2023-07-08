@@ -66,7 +66,7 @@ export async function battle(req: Request, res: Response) {
 		);
 
 		return res.status(200).json({
-			asset: {
+			character: {
 				id: character.id,
 				damage: battleOutcome.playerDamage,
 				roll: battleOutcome.playerRoll,
