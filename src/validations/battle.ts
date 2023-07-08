@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const characterSchema = z.object({
-	id: z.string(),
+	id: z.number(),
 	name: z.string(),
 	stats: z.array(
 		z.object({
@@ -24,7 +24,7 @@ const characterSchema = z.object({
 });
 
 const mobSchema = z.object({
-	id: z.string(),
+	id: z.number(),
 	name: z.string(),
 	monster: z.object({
 		lore: z.string(),
@@ -49,7 +49,6 @@ const statSchema = z.object({
 });
 
 export const battleSchema = z.object({
-	chatId: z.string(),
 	definedStats: z.array(z.object({ id: z.number(), name: z.string() })),
 	character: characterSchema,
 	mob: mobSchema,

@@ -12,7 +12,7 @@ import {
 
 export async function battle(req: Request, res: Response) {
 	try {
-		const { character, mob, bonuses, chatId, definedStats } = battleSchema.parse(
+		const { character, mob, bonuses, definedStats } = battleSchema.parse(
 			req.body
 		);
 
@@ -66,7 +66,6 @@ export async function battle(req: Request, res: Response) {
 		);
 
 		return res.status(200).json({
-			chatId,
 			asset: {
 				id: character.id,
 				damage: battleOutcome.playerDamage,
