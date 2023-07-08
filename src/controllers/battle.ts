@@ -12,18 +12,18 @@ import {
 
 export async function battle(req: Request, res: Response) {
 	try {
-		const { asset, mob, bonuses, chatId, definedStats } = battleSchema.parse(
+		const { character, mob, bonuses, chatId, definedStats } = battleSchema.parse(
 			req.body
 		);
 
 		// Fetch user input classification
 		const { classification } = await getClassification(
-			asset.action,
+			character.action,
 			definedStats
 		);
 
 		// Extract bonuses from equipment
-		const equipmentBonuses: Stat[] = asset.equipment.reduce(
+		const equipmentBonuses: Stat[] = character.equipment.reduce(
 			(accumulator, curr) => {
 				const conversion = curr.bonuses.map(({ statId, value }) => ({
 					id: statId,
@@ -35,7 +35,7 @@ export async function battle(req: Request, res: Response) {
 		);
 
 		// Calc total stats of the user and the equipment
-		const totalStats: Stat[] = calcStats(asset.stats, equipmentBonuses);
+		const totalStats: Stat[] = calcStats(character.stats, equipmentBonuses);
 
 		var statUsed: Stat | undefined = undefined;
 		if(classification !== null)
@@ -62,13 +62,13 @@ export async function battle(req: Request, res: Response) {
 		const aiResponse = await generateAIResponse(
 			monstMsgs,
 			battleOutcome.playerRoll,
-			asset.name
+			character.name
 		);
 
 		return res.status(200).json({
 			chatId,
 			asset: {
-				id: asset.id,
+				id: character.id,
 				damage: battleOutcome.playerDamage,
 				roll: battleOutcome.playerRoll,
 				classification,

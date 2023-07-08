@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const assetSchema = z.object({
+const characterSchema = z.object({
 	id: z.string(),
 	name: z.string(),
 	stats: z.array(
@@ -51,12 +51,12 @@ const statSchema = z.object({
 export const battleSchema = z.object({
 	chatId: z.string(),
 	definedStats: z.array(z.object({ id: z.number(), name: z.string() })),
-	asset: assetSchema,
+	character: characterSchema,
 	mob: mobSchema,
 	bonuses: z.array(bonusSchema),
 });
 
-export type Asset = z.infer<typeof assetSchema>;
+export type Character = z.infer<typeof characterSchema>;
 export type Mob = z.infer<typeof mobSchema>;
 export type Bonus = z.infer<typeof bonusSchema>;
 export type Stat = z.infer<typeof statSchema>;
