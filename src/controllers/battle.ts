@@ -16,38 +16,45 @@ export async function battle(req: Request, res: Response) {
 			req.body
 		);
 
-		// Fetch user input classification
+		/* Fetch user input classification */
 		const { classification } = await getClassification(
 			character.action,
 			definedStats
 		);
 
-		// Extract bonuses from equipment
+		/* Extract bonuses from equipment */
 		const equipmentBonuses: Stat[] = character.equipment.reduce(
-			(accumulator, curr) => {
-				const conversion = curr.bonuses.map(({ statId, value }) => ({
-					id: statId,
-					value,
+			(accumulator: Stat[], curr) => {
+				const conversion = curr.Item.Stats.map(({ StatId, Experience }) => ({
+					StatId,
+					Experience,
 				}));
 				return [...accumulator, ...conversion];
 			},
 			[] as Stat[]
 		);
 
-		// Calc total stats of the user and the equipment
+		/* 
+			if a player has 10 Strength, and they use a strength attack, they should get the roll bonus based on their 10 Str (if such a bonus exists)
+		 	Calc total stats of the user and the equipment
+		*/
 		const totalStats: Stat[] = calcStats(character.stats, equipmentBonuses);
 
 		var statUsed: Stat | undefined = undefined;
-		if(classification !== null)
-		{
-			statUsed = totalStats.find(
-				({ id }) => id === classification.id
-			);
+		if (classification !== null) {
+			statUsed = totalStats.find(({ StatId }) => StatId === classification.id);
 		}
 
-		// Check if user has bonus roll
+		const foundStat = definedStats.find(({ id }) => id === classification?.id);
+
+		/* Check if user has bonus roll */
 		const bonusRoll: number = statUsed
-			? getBonusRoll(classification?.id, statUsed?.value, bonuses)
+			? getBonusRoll(
+					classification?.id,
+					statUsed?.Experience,
+					foundStat?.levelScale ?? 0,
+					bonuses
+			  )
 			: 0;
 
 		// FIGHT!!!!
@@ -58,7 +65,7 @@ export async function battle(req: Request, res: Response) {
 		const monstMsgs: ChatCompletionRequestMessage[] = Object.values(
 			monster
 		).map((content) => ({ role: 'system', content }));
-		
+
 		const aiResponse = await generateAIResponse(
 			monstMsgs,
 			battleOutcome.playerRoll,

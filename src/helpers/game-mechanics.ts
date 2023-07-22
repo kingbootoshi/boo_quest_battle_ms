@@ -30,8 +30,8 @@ function diceRoll(bonusRoll: number = 0): number {
 // Random Attack Number
 function attack(additionalDamage: number = 0, multiplier: number = 1): number {
 	return (
-		(Math.floor(Math.random() * MAX_DAMAGE)) + (MIN_DAMAGE + additionalDamage) *
-		multiplier
+		Math.floor(Math.random() * MAX_DAMAGE) +
+		(MIN_DAMAGE + additionalDamage) * multiplier
 	);
 }
 
@@ -92,9 +92,11 @@ export function battleOut(bonusRoll: number): {
 // Finds bonuses
 export function getBonusRoll(
 	statId: number,
-	value: number,
+	experience: number,
+	levelScale: number,
 	bonuses: Bonus[]
 ): number {
+	const value = experienceToLevel(experience, levelScale);
 	const foundBonus = bonuses.find(
 		({ statId: bonusStat }) => bonusStat === statId
 	);
@@ -109,17 +111,17 @@ export function getBonusRoll(
 // Gets total stats = Current player stats + equipment stats
 export function calcStats(stats: Stat[], equipment: Stat[]): Stat[] {
 	const mappedStats: any = {};
-	stats.forEach(({ id, value }) => (mappedStats[id] = value));
-	equipment.forEach(({ id, value }) => {
-		if (!mappedStats[id]) {
-			mappedStats[id] = value;
+	stats.forEach(({ StatId, Experience }) => (mappedStats[StatId] = Experience));
+	equipment.forEach(({ StatId, Experience }) => {
+		if (!mappedStats[StatId]) {
+			mappedStats[StatId] = Experience;
 		} else {
-			mappedStats[id] += value;
+			mappedStats[StatId] += Experience;
 		}
 	});
 	const totalStats = [];
 	for (const key in mappedStats) {
-		totalStats.push({ id: Number(key), value: mappedStats[key] });
+		totalStats.push({ StatId: Number(key), Experience: mappedStats[key] });
 	}
 
 	return totalStats;
@@ -155,9 +157,10 @@ export async function generateAIResponse(
 	}
 
 	defaultMsgs.push({
-		role: "system",
-		content: `If you decide to mention the player use their name: ${username}`
-	})
+		role: 'system',
+		content: `If you decide to mention the player use their name: ${username}`,
+	});
+
 	const result = await openai.createChatCompletion({
 		model: 'gpt-3.5-turbo',
 		messages: defaultMsgs,
@@ -169,4 +172,20 @@ export async function generateAIResponse(
 	});
 
 	return result?.data?.choices[0]?.message ?? '';
+}
+
+export function experienceToLevel(experience: number, levelScale: number) {
+	if (experience < levelScale) return 1;
+	else {
+		let l = 1;
+		while (levelToExperience(l, levelScale) <= experience) {
+			l++;
+		}
+		return l;
+	}
+}
+
+export function levelToExperience(level: number, levelScale: number) {
+	const res = level * levelScale + ((level * (level + 1)) / 2) * levelScale;
+	return res;
 }
