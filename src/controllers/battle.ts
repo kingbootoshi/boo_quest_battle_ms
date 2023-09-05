@@ -12,15 +12,13 @@ import {
 
 export async function battle(req: Request, res: Response) {
 	try {
-		const { character, mob, bonuses, definedStats } = battleSchema.parse(
-			req.body
-		);
+		const { character, mob, bonuses, definedStats, monsterAttack } =
+			battleSchema.parse(req.body);
 
 		/* Fetch user input classification */
-		const { classification } = await getClassification(
-			character.action,
-			definedStats
-		);
+		const { classification } = monsterAttack
+			? { classification: null }
+			: await getClassification(character.action, definedStats);
 
 		/* Extract bonuses from equipment */
 		const equipmentBonuses: Stat[] = character.equipment.reduce(
@@ -61,30 +59,29 @@ export async function battle(req: Request, res: Response) {
 		const battleOutcome = battleOut(bonusRoll);
 
 		/** Monster response  */
-		const { monster } = mob;
-		const monstMsgs: ChatCompletionRequestMessage[] = Object.values(
-			monster
-		).map((content) => ({ role: 'system', content }));
+		if (monsterAttack) {
+			const { monster } = mob;
+			const monstMsgs: ChatCompletionRequestMessage[] = Object.values(
+				monster
+			).map((content) => ({ role: 'system', content }));
 
-		const aiResponse = await generateAIResponse(
-			monstMsgs,
-			battleOutcome.playerRoll,
-			character.name
-		);
-
-		return res.status(200).json({
-			character: {
-				id: character.id,
-				damage: battleOutcome.playerDamage,
-				roll: battleOutcome.playerRoll,
-				classification,
-			},
-			mob: {
-				id: mob.id,
+			const aiResponse = await generateAIResponse(
+				monstMsgs,
+				battleOutcome.playerRoll,
+				character.name
+			);
+			return res.status(200).json({
 				damage: battleOutcome.monsterDamage,
 				roll: battleOutcome.monsterRoll,
 				response: aiResponse.content,
-			},
+			});
+		}
+
+		/** User Response */
+		return res.status(200).json({
+			damage: battleOutcome.playerDamage,
+			roll: battleOutcome.playerRoll,
+			classification,
 		});
 
 		// Return classifciation & dice roll
