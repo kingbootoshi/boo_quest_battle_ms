@@ -67,7 +67,6 @@ export async function battle(req: Request, res: Response) {
 
 			const aiResponse = await generateAIResponse(
 				monstMsgs,
-				battleOutcome.playerRoll,
 				character.name
 			);
 			return res.status(200).json({
