@@ -136,25 +136,20 @@ export async function generateAIResponse(
 		...monsterDetails,
 		...monsterRules,
 	];
-	if (playerRoll === 20) {
-		defaultMsgs.push({
-			role: 'system',
-			content:
-				'You have been attacked (critically) by the player respond with anger.',
-		});
-	} else if (playerRoll > 14) {
-		defaultMsgs.push({
-			role: 'system',
-			content:
-				'You have been attacked (but not critically) by the player respond with disdain.',
-		});
-	} else {
-		defaultMsgs.push({
-			role: 'system',
-			content:
-				'You have been attacked (but no harm) by the player respond disrespectfully.',
-		});
-	}
+
+	defaultMsgs.push({
+		role: 'system',
+		content: 'Respond in first person.',
+	})
+	defaultMsgs.push({
+		role: 'system',
+		content: 'Respond as if you are already attacking. No need to describe the enviroment around you.',
+	})
+
+	defaultMsgs.push({
+		role: 'system',
+		content: 'Make sounds when attacking the player',
+	})
 
 	defaultMsgs.push({
 		role: 'system',
