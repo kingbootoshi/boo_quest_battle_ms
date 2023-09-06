@@ -129,7 +129,6 @@ export function calcStats(stats: Stat[], equipment: Stat[]): Stat[] {
 
 export async function generateAIResponse(
 	monsterDetails: ChatCompletionRequestMessage[],
-	playerRoll: number,
 	username: string
 ): Promise<any> {
 	const defaultMsgs: ChatCompletionRequestMessage[] = [
@@ -140,16 +139,17 @@ export async function generateAIResponse(
 	defaultMsgs.push({
 		role: 'system',
 		content: 'Respond in first person.',
-	})
+	});
 	defaultMsgs.push({
 		role: 'system',
-		content: 'Respond as if you are already attacking. No need to describe the enviroment around you.',
-	})
+		content:
+			'Respond as if you are already attacking. No need to describe the enviroment around you.',
+	});
 
 	defaultMsgs.push({
 		role: 'system',
 		content: 'Make sounds when attacking the player',
-	})
+	});
 
 	defaultMsgs.push({
 		role: 'system',
