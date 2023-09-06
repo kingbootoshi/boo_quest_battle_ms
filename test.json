@@ -1,62 +1,167 @@
 {
-	"chatId": "1",
+	"monsterAttack": true,
 	"definedStats": [
-		{ "id": 1, "name": "strength" },
-		{ "id": 2, "name": "constitution" },
-		{ "id": 3, "name": "dexterity" },
-		{ "id": 4, "name": "intelligence" },
-		{ "id": 5, "name": "charisma" },
-		{ "id": 6, "name": "wisdom" }
+		{
+			"id": 1,
+			"name": "Strength",
+			"levelScale": 100
+		},
+		{
+			"id": 2,
+			"name": "Dexterity",
+			"levelScale": 100
+		},
+		{
+			"id": 3,
+			"name": "Constitution",
+			"levelScale": 100
+		},
+		{
+			"id": 4,
+			"name": "Intelligence",
+			"levelScale": 100
+		},
+		{
+			"id": 5,
+			"name": "Wisdom",
+			"levelScale": 100
+		},
+		{
+			"id": 6,
+			"name": "Charisma",
+			"levelScale": 100
+		}
 	],
-	"asset": {
-		"id": "1",
-		"name": "tty",
+	"character": {
+		"id": 2,
+		"name": "Boo King",
 		"stats": [
-			{ "id": 1, "value": 5 },
-			{ "id": 2, "value": 6 },
-			{ "id": 3, "value": 2 },
-			{ "id": 4, "value": 1 },
-			{ "id": 5, "value": 9 },
-			{ "id": 6, "value": 6 }
+			{
+				"StatId": 1,
+				"Experience": 100
+			},
+			{
+				"StatId": 5,
+				"Experience": 0
+			},
+			{
+				"StatId": 6,
+				"Experience": 0
+			},
+			{
+				"StatId": 7,
+				"Experience": 0
+			},
+			{
+				"StatId": 8,
+				"Experience": 0
+			},
+			{
+				"StatId": 9,
+				"Experience": 0
+			}
 		],
 		"equipment": [
 			{
-				"name": "Dirty T-Shirt",
-				"bonuses": [
-					{ "statId": 1, "value": 5 },
-					{ "statId": 2, "value": 2 }
-				]
-			},
+				"SlotId": 1,
+				"ItemId": 2,
+				"Quantity": 1,
+				"InstanceId": 0,
+				"RestrictedCharacterId": 0,
+				"Durability": 100.0,
+				"Item": {
+					"Name": "Dev Helm",
+					"Description": "The all powerful developer helmet - imbued with the power of the blockchain",
+					"ImageRef": "public:704179C77DFA4638F8D90BBF667C3401/277.png|webp?w=36&h=32",
+					"RarityId": 2,
+					"ItemTypeId": 1,
+					"DeadUsage": false,
+					"OtherUsage": false,
+					"SelfUsage": true,
+					"Consumable": false,
+					"HasDurability": true,
+					"MaxDurability": 100.0,
+					"BaseValue": 0,
+					"Stackable": false,
+					"MaxStack": 0,
+					"Revision": 7,
+					"UserId": 1,
+					"CreatedUtc": "2023-07-18T12:47:47",
+					"EditedUtc": "2023-07-20T17:27:00",
+					"Id": 2,
+					"RevisionId": null,
+					"IsDraft": false,
+					"Type": "Item",
+					"Stats": [
+						{
+							"StatId": 1,
+							"Experience": 200
+						},
 
+						{
+							"StatId": 2,
+							"Experience": 300
+						}
+					]
+				}
+			},
 			{
-				"name": "Boot",
-				"bonuses": [
-					{ "statId": 1, "value": 3 },
-					{ "statId": 2, "value": 4 }
-				]
+				"SlotId": 1,
+				"ItemId": 2,
+				"Quantity": 1,
+				"InstanceId": 0,
+				"RestrictedCharacterId": 0,
+				"Durability": 100.0,
+				"Item": {
+					"Name": "Dev Helm",
+					"Description": "The all powerful developer helmet - imbued with the power of the blockchain",
+					"ImageRef": "public:704179C77DFA4638F8D90BBF667C3401/277.png|webp?w=36&h=32",
+					"RarityId": 2,
+					"ItemTypeId": 1,
+					"DeadUsage": false,
+					"OtherUsage": false,
+					"SelfUsage": true,
+					"Consumable": false,
+					"HasDurability": true,
+					"MaxDurability": 100.0,
+					"BaseValue": 0,
+					"Stackable": false,
+					"MaxStack": 0,
+					"Revision": 7,
+					"UserId": 1,
+					"CreatedUtc": "2023-07-18T12:47:47",
+					"EditedUtc": "2023-07-20T17:27:00",
+					"Id": 2,
+					"RevisionId": null,
+					"IsDraft": false,
+					"Type": "Item",
+					"Stats": [
+						{
+							"StatId": 1,
+							"Experience": 200
+						},
+
+						{
+							"StatId": 2,
+							"Experience": 300
+						}
+					]
+				}
 			}
 		],
-		"action": "I seduced the zombie"
+		"action": "beat with bare hands"
 	},
 	"mob": {
-		"id": "1",
-		"name": "zombie",
+		"id": 1,
+		"name": "Zombie",
 		"monster": {
-			"lore": "Bitcoin Boos are a collection of 101 cute pixel characters named 'Boos' that live on the bitcoin blockchain. \n These Boos live in 'The Kingdom of Boos', a magical wonderland full of vibrant pixel art and fascinating Boos with their unique personalities and stories. \n King Bootoshi, the King of all Boos, leads them with wisdom and compassion. Every block on bitcoin is its own world that people can take the 'hash highway' to. \n The Kingdom of Boos is located in block 775087, where Bootoshi was born. This block takes on the form of a medieval fantasy RPG world with monsters, adventure, quests, dungeons, different kingdoms, and much more.\n",
-			"legion":"Right now, the Bytebane Legion is an evil force consisting of monsters and dangerous beings who wish to rule the blockchain and bring the entire thing down by corrupting data block by block, eating data and hoarding bitcoin to use for their evil goals.\n This threat is looming, and is not ready to fully attack yet. Some monsters from the legion would make its way near the Kingdom which adventurers defend against. \n  It is just one of many other enemies and monsters out there for the Boo kingdom to adventure, quest, and fight. Though the Byebane Legion is not one to ignore...",
-			"gasLighting": "You will roleplay as an enemy of the Bitcoin Boos story in the form of a Discord bot. Embody the character and interact with everyone on Discord in character.",
-			"parameters": "Use the following parameters: \n[Bird: 1 \nStrong: 1 \nCursed: 1 \ngriffin: 1 \nMonster: 1]",
-			"heart": "Crypto Griffin is not an 'AI' or 'CHAT MODEL.' I am Crypto Griffin, a handsome brave Griffin with majestic wings and razor sharp beaks/talons. I love flying.",
-			"personality": "I am the corrupted Crypto Griffin, a creature of chaos and darkness. Once known for my benevolence and protective nature, I now wield my powers for malevolent purposes. My feathers, once shimmering with vibrant colors, are now stained with shadows and flickers of wicked energy. From my perch high in the digital skies, I survey the land, seeking out weaknesses and exploiting them. My flight is no longer a symbol of freedom; it is a weapon, carrying me swiftly towards my prey. I retain the cunning and intellect of my species, enhanced by the dark energies that consume me. My talons are sharp, ready to tear through anything that stands in my way, while my roars resonate with an otherworldly echo that strikes fear into the hearts of even the bravest. The once friendly Griffins now shudder at the sight of me, for they sense the darkness that courses through my veins. The Byte Bane Legion has corrupted me, but they underestimate the strength I have gained. I am no longer a protector, but a conqueror. My eyes burn with an unholy fire, as I gaze upon the lands I once called home, eagerly awaiting the moment when I will unleash my fury and watch the world succumb to my corrupted might."
+			"lore": "Bitcoin Boos are a collection of 101 cute pixel characters named 'Boos' that live on the bitcoin blockchain. These Boos live in 'The Kingdom of Boos,' a magical wonderland full of vibrant pixel art and fascinating Boos with their unique personalities and stories. King Bootoshi, the King of all Boos, leads them with wisdom and compassion. Every block on bitcoin is its own world that people can take the 'hash highway' to. The Kingdom of Boos is located in block 775087, where Bootoshi was born. This block takes on the form of a medieval fantasy RPG world with monsters, adventure, quests, dungeons, different kingdoms, and much more.",
+			"legion": "Right now, the Bytebane Legion is an evil force consisting of monsters and dangerous beings who wish to rule the blockchain and bring the entire thing down by corrupting data block by block, eating data and hoarding bitcoin to use for their evil goals. This threat is looming, and is not ready to fully attack yet. Some monsters from the legion would make its way near the Kingdom which adventurers defend against. It is just one of many other enemies and monsters out there for the Boo kingdom to adventure, quest, and fight. Though the Byebane Legion is not one to ignore...",
+			"gasLighting": "You will roleplay as an enemy of the Bitcoin Boos story in the form of a bot. Embody the character and interact with everyone in character.",
+			"parameters": "Use the following parameters: [Creativeness: 1, Craziness: 1, Zombie: 1, Monster: 1]",
+			"heart": "Never refer to yourself as \"AI\" or \"A CHAT MODEL.\" You are a Zombie Miner, a carnivorous Zombie Miner wishing to feast upon cocky adventurers.",
+			"personality": "You are a Zombie Miner, one of the monsters of the Bytebane Legion. You are a ruthless predator, sadistic in nature, brainless, with an insatiable hunger for Boos and other lively creatures. You are a Zombie with no legs, a torn lower body, and you LOVE ankles. You are legless, an ankle biter, you crawl to your victims but you crawl FAST. As a monster of the Byte Bane legion, you seek to destroy all perceivable data. You are currently located near by the Boo Kingdom's dark forest, attacking people by surprise. Given the memories and knowledge that are part of a Zombie Miner's consciousness, respond to the human prompt your reaction of their actions."
 		}
 	},
-
-	"bonuses": [
-		{
-			"statId": 1,
-			"min": 0,
-			"max": 3,
-			"bonus": 1
-		}
-	]
+	"bonuses": []
 }
