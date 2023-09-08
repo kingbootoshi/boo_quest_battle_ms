@@ -31,28 +31,27 @@ const itemSchema = z.object({
 	ItemTypeId: z.number(),
 	Id: z.number(),
 	Type: z.string(),
-	Stats: z.array(statSchema)
-})
-
+	Stats: z.array(statSchema),
+});
 
 const equipmentSchema = z.object({
 	ItemId: z.number(),
 	Durability: z.number().nullable(),
-	Item: itemSchema
-})
-
+	Item: itemSchema,
+});
 
 const characterSchema = z.object({
 	id: z.number(),
 	name: z.string(),
 	stats: z.array(statSchema),
 	equipment: z.array(equipmentSchema),
-	action: z.string(),
+	action: z.string().default("")
 });
 
-
 export const battleSchema = z.object({
-	definedStats: z.array(z.object({ id: z.number(), name: z.string(), levelScale: z.number() })),
+	definedStats: z.array(
+		z.object({ id: z.number(), name: z.string(), levelScale: z.number() })
+	),
 	character: characterSchema,
 	mob: mobSchema,
 	monsterAttack: z.boolean(),
@@ -63,4 +62,4 @@ export type Character = z.infer<typeof characterSchema>;
 export type Mob = z.infer<typeof mobSchema>;
 export type Bonus = z.infer<typeof bonusSchema>;
 export type Stat = z.infer<typeof statSchema>;
-export type Equipment = z.infer<typeof equipmentSchema>
+export type Equipment = z.infer<typeof equipmentSchema>;
