@@ -45,7 +45,6 @@ const characterSchema = z.object({
 	name: z.string(),
 	stats: z.array(statSchema),
 	equipment: z.array(equipmentSchema),
-	action: z.string().default("")
 });
 
 export const battleSchema = z.object({
@@ -56,6 +55,7 @@ export const battleSchema = z.object({
 	mob: mobSchema,
 	monsterAttack: z.boolean(),
 	bonuses: z.array(bonusSchema),
+	action: z.optional(z.string().default('')).nullable(),
 });
 
 export type Character = z.infer<typeof characterSchema>;

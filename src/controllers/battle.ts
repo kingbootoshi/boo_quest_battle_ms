@@ -12,13 +12,13 @@ import {
 
 export async function battle(req: Request, res: Response) {
 	try {
-		const { character, mob, bonuses, definedStats, monsterAttack } =
+		const { character, mob, bonuses, definedStats, monsterAttack, action } =
 			battleSchema.parse(req.body);
 
 		/* Fetch user input classification */
 		const { classification } = monsterAttack
 			? { classification: null }
-			: await getClassification(character.action, definedStats);
+			: await getClassification(action || "", definedStats);
 
 		/* Extract bonuses from equipment */
 		const equipmentBonuses: Stat[] = character.equipment.reduce(
