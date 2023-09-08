@@ -55,6 +55,7 @@ export const battleSchema = z.object({
 	definedStats: z.array(z.object({ id: z.number(), name: z.string(), levelScale: z.number() })),
 	character: characterSchema,
 	mob: mobSchema,
+	monsterAttack: z.boolean(),
 	bonuses: z.array(bonusSchema),
 });
 
