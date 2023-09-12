@@ -11,6 +11,7 @@ const mobSchema = z.object({
 		heart: z.string(),
 		personality: z.string(),
 	}),
+	difficulty: z.number(),
 });
 
 const bonusSchema = z.object({

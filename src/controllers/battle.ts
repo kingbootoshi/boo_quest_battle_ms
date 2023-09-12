@@ -56,7 +56,7 @@ export async function battle(req: Request, res: Response) {
 			: 0;
 
 		// FIGHT!!!!
-		const battleOutcome = battleOut(bonusRoll);
+		const battleOutcome = battleOut(bonusRoll, mob.difficulty);
 
 		/** Monster response  */
 		if (monsterAttack) {

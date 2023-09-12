@@ -51,7 +51,7 @@ export async function getClassification(
 }
 
 // Battle between two players
-export function battleOut(bonusRoll: number): {
+export function battleOut(bonusRoll: number, monsterDifficulty: number): {
 	playerRoll: number;
 	monsterRoll: number;
 	playerDamage: number;
@@ -63,7 +63,7 @@ export function battleOut(bonusRoll: number): {
 
 	if (playerRoll >= 20) {
 		playerDamage = attack(0, 2);
-	} else if (playerRoll > 14) {
+	} else if (playerRoll > monsterDifficulty) {
 		playerDamage = attack();
 	}
 
@@ -77,7 +77,7 @@ export function battleOut(bonusRoll: number): {
 		playerDamage += 2;
 	} else if (monsterRoll >= 20) {
 		monsterDamage = attack(0, 2);
-	} else if (monsterRoll > 14) {
+	} else if (monsterRoll > monsterDifficulty) {
 		monsterDamage = attack();
 	}
 
