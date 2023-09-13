@@ -77,7 +77,7 @@ export function battleOut(bonusRoll: number, monsterDifficulty: number): {
 		playerDamage += 2;
 	} else if (monsterRoll >= 20) {
 		monsterDamage = attack(0, 2);
-	} else if (monsterRoll > monsterDifficulty) {
+	} else if (monsterRoll > 10) { // Player difficulty is currently hardcoded to 10, giving mobs a 50% chance of hitting a player
 		monsterDamage = attack();
 	}
 
