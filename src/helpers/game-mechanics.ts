@@ -115,7 +115,7 @@ export function getBonusRoll(
 // Gets total stats = Current player stats + equipment stats
 export function calcStats(stats: Skill[]): Skill[] {
   const mappedStats: any = {};
-  stats.forEach(({ Skill, Experience }) => (mappedStats[Skill] = Experience));
+  stats.forEach(({ skill, experience }) => (mappedStats[skill] = experience));
   // equipment.forEach(({ Skill, Experience }) => {
   //   if (!mappedStats[Skill]) {
   //     mappedStats[Skill] = Experience;
@@ -125,7 +125,7 @@ export function calcStats(stats: Skill[]): Skill[] {
   // });
   const totalStats = [];
   for (const key in mappedStats) {
-    totalStats.push({ Skill: Number(key), Experience: mappedStats[key] });
+    totalStats.push({ skill: Number(key), experience: mappedStats[key] });
   }
 
   return totalStats;

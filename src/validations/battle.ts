@@ -22,31 +22,31 @@ const bonusSchema = z.object({
 });
 
 const skillSchema = z.object({
-  Skill: z.number(),
-  Experience: z.number(),
+  skill: z.number(),
+  experience: z.number(),
 });
 
 const itemSchema = z.object({
-  Name: z.string().nullable(),
-  Description: z.string(),
-  MaxDurability: z.number(),
+  name: z.string().nullable(),
+  description: z.string(),
+  maxDurability: z.number(),
 });
 
 const equipmentSchema = z.object({
-  Slot: z.number().nullable(),
-  Quantity: z.number().nullable(),
-  Durability: z.number().nullable(),
+  slot: z.number().nullable(),
+  quantity: z.number().nullable(),
+  durability: z.number().nullable(),
   item: itemSchema,
   effects: z.array(
     z.object({
-      Value: z.number(),
-      AlwaysApply: z.boolean(),
-      ApplyChance: z.number(),
+      value: z.number(),
+      alwaysApply: z.boolean(),
+      applyChance: z.number(),
       type: z.object({
-        Name: z.string(),
-        Description: z.string(),
-        Key: z.string(),
-        Passive: z.boolean(),
+        name: z.string(),
+        description: z.string(),
+        key: z.string(),
+        passive: z.boolean(),
       }),
     })
   ),

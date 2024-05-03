@@ -23,9 +23,9 @@ export async function battle(req: Request, res: Response) {
     /* Extract effects from equipment */
     const equipmentEffects = character.equipment
       .map((equipment) => {
-        const hey = equipment.effects.map(({ Value, type }) => ({
-          Value,
-          Key: type.Key,
+        const hey = equipment.effects.map(({ value, type }) => ({
+          value,
+          key: type.key,
         }));
         return hey;
       })
@@ -39,7 +39,7 @@ export async function battle(req: Request, res: Response) {
 
     var statUsed: Skill | undefined = undefined;
     if (classification !== null) {
-      statUsed = totalStats.find(({ Skill }) => Skill === classification.id);
+      statUsed = totalStats.find(({ skill }) => skill === classification.id);
     }
 
     const foundStat = definedStats.find(({ id }) => id === classification?.id);
@@ -48,15 +48,15 @@ export async function battle(req: Request, res: Response) {
     let bonusRoll: number = statUsed
       ? getBonusRoll(
           classification?.id,
-          statUsed?.Experience,
+          statUsed?.experience,
           foundStat?.levelScale ?? 0,
           bonuses
         )
       : 0;
 
-    equipmentEffects.forEach(({ Key, Value }) => {
-      if (classification?.name === Key) {
-        bonusRoll += Value;
+    equipmentEffects.forEach(({ key, value }) => {
+      if (classification?.name === key) {
+        bonusRoll += value;
       }
     });
 
