@@ -1,135 +1,12 @@
 import axios from "axios";
 import { ChatCompletionRequestMessage } from "openai";
 
-import { type Bonus, type Skill } from "@/validations/battle";
-import {
-  MIN_DAMAGE,
-  MAX_DAMAGE,
-  MAX_ROLL,
-  MIN_ROLL,
-  monsterRules,
-  CLASSIFICATION_BASE_URL,
-} from "@/constants";
+import { monsterRules } from "@/constants";
 
 import openai from "@/services/openai";
 import { config } from "dotenv";
 
 config();
-
-interface ClassificationResponse {
-  data: {
-    classification: string | undefined;
-  };
-}
-
-// Random Dice Number
-function diceRoll(bonusRoll: number = 0): number {
-  return Math.floor(Math.random() * MAX_ROLL) + MIN_ROLL + bonusRoll;
-}
-
-// Random Attack Number
-function attack(additionalDamage: number = 0, multiplier: number = 1): number {
-  return (
-    Math.floor(Math.random() * MAX_DAMAGE) +
-    (MIN_DAMAGE + additionalDamage) * multiplier
-  );
-}
-
-// Classifies User's Text
-export async function getClassification(
-  input: string,
-  definedStats: any
-): Promise<any> {
-  const { data } = (await axios.post(
-    CLASSIFICATION_BASE_URL + "/api/classification",
-    {
-      input,
-      definedStats,
-    }
-  )) as ClassificationResponse;
-  return data;
-}
-
-// Battle between two players
-export function battleOut(
-  bonusRoll: number,
-  monsterDifficulty: number
-): {
-  playerRoll: number;
-  monsterRoll: number;
-  playerDamage: number;
-  monsterDamage: number;
-} {
-  /** Player Roll */
-  const playerRoll = diceRoll(bonusRoll);
-  let playerDamage = 0;
-
-  if (playerRoll >= 20) {
-    playerDamage = attack(0, 2);
-  } else if (playerRoll > monsterDifficulty) {
-    playerDamage = attack();
-  }
-
-  /** Monster Roll */
-  let monsterRoll = diceRoll();
-  let monsterDamage = 0;
-  if (playerRoll === 1) {
-    monsterRoll = diceRoll(5);
-  }
-  if (monsterRoll === 1) {
-    playerDamage += 2;
-  } else if (monsterRoll >= 20) {
-    monsterDamage = attack(0, 2);
-  } else if (monsterRoll > 10) {
-    // Player difficulty is currently hardcoded to 10, giving mobs a 50% chance of hitting a player
-    monsterDamage = attack();
-  }
-
-  return {
-    playerRoll,
-    monsterRoll,
-    playerDamage,
-    monsterDamage,
-  };
-}
-
-// Finds bonuses
-export function getBonusRoll(
-  statId: number,
-  experience: number,
-  levelScale: number,
-  bonuses: Bonus[]
-): number {
-  const value = experienceToLevel(experience, levelScale);
-  const foundBonus = bonuses.find(
-    ({ statId: bonusStat }) => bonusStat === statId
-  );
-  if (!foundBonus) return 0;
-  const { min, max } = foundBonus;
-  if (value >= min && value <= max) {
-    return foundBonus.bonus;
-  }
-  return 0;
-}
-
-// Gets total stats = Current player stats + equipment stats
-export function calcStats(stats: Skill[]): Skill[] {
-  const mappedStats: any = {};
-  stats.forEach(({ skill, experience }) => (mappedStats[skill] = experience));
-  // equipment.forEach(({ Skill, Experience }) => {
-  //   if (!mappedStats[Skill]) {
-  //     mappedStats[Skill] = Experience;
-  //   } else {
-  //     mappedStats[Skill] += Experience;
-  //   }
-  // });
-  const totalStats = [];
-  for (const key in mappedStats) {
-    totalStats.push({ skill: Number(key), experience: mappedStats[key] });
-  }
-
-  return totalStats;
-}
 
 export async function generateAIResponse(
   monsterDetails: ChatCompletionRequestMessage[],
@@ -171,20 +48,4 @@ export async function generateAIResponse(
   });
 
   return result?.data?.choices[0]?.message ?? "";
-}
-
-export function experienceToLevel(experience: number, levelScale: number) {
-  if (experience < levelScale) return 1;
-  else {
-    let l = 1;
-    while (levelToExperience(l, levelScale) <= experience) {
-      l++;
-    }
-    return l;
-  }
-}
-
-export function levelToExperience(level: number, levelScale: number) {
-  const res = level * levelScale + ((level * (level + 1)) / 2) * levelScale;
-  return res;
 }
