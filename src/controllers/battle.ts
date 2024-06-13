@@ -9,24 +9,16 @@ export async function battle(req: Request, res: Response) {
     const { character, mob } = battleSchema.parse(req.body);
 
     /** Monster response  */
-    const { monster } = mob;
     const monsterMessages: ChatCompletionRequestMessage[] = Object.values(
-      monster
+      mob
     ).map((content) => ({ role: "system", content }));
-
-    if (character.action) {
-      monsterMessages.push({
-        role: "system",
-        content: `user does this action to you ${character.action}`,
-      });
-    }
 
     const aiResponse = await generateAIResponse(
       monsterMessages,
       character.name
     );
     return res.status(200).json({
-      response: aiResponse.content,
+      action: aiResponse.content,
     });
   } catch (error) {
     console.log("ERROR", error);

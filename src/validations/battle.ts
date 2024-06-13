@@ -1,26 +1,21 @@
 import { z } from "zod";
 
 const mobSchema = z.object({
-  id: z.number(),
   name: z.string(),
-  monster: z.object({
-    lore: z.string(),
-    legion: z.string(),
-    gasLighting: z.string(),
-    parameters: z.string(),
-    heart: z.string(),
-    personality: z.string(),
-  }),
-  difficulty: z.number(),
+  lore: z.string(),
+  legion: z.string(),
+  gasLighting: z.string(),
+  parameters: z.string(),
+  heart: z.string(),
+  personality: z.string(),
 });
 
 const characterSchema = z.object({
-  id: z.number(),
   name: z.string(),
-  action: z.string().nullable(),
 });
 
 export const battleSchema = z.object({
+  roll: z.number(),
   character: characterSchema,
   mob: mobSchema,
 });
